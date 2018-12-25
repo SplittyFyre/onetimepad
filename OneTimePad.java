@@ -14,8 +14,12 @@ public class OneTimePad {
 		boolean modeenc = true;
 			
 		if (args.length == 0) {
-			System.out.println("exit");
-			System.exit(0);
+			System.out.println("-e: encrypt mode");
+            System.out.println("-d: decrypt mode");
+            System.out.println("-g: generate key\n");
+            System.out.println("-k: specify key");
+            System.out.println("-i: specify input");
+            System.exit(0);
 		}
 		
 		switch (args[0]) {
@@ -29,9 +33,7 @@ public class OneTimePad {
 	    	break;
 	    	
 	    case "-g":
-	    	System.out.println("Warning: Key Genereated using CSPRNG. May not be truly random");
 	    	System.out.println("https://www.random.org/strings/?num=25&len=20&upperalpha=on&unique=on&format=plain&rnd=new");
-	    	genKey();
 	    	System.exit(0);
 	    	break;
 	    	
@@ -146,37 +148,6 @@ public class OneTimePad {
 			txt[i] += 65;
 		}
 		return new String(txt);
-	}
-		
-	// this thing sucks
-	private static int[] genKey() {
-		
-		SecureRandom rand = new SecureRandom();
-		
-		// secure-ish char generation
-		int[] key = new int[KEY_LEN];
-		for (int i = 0; i < KEY_LEN; i++) {
-			key[i] = rand.nextInt(26);
-		}
-		
-		// followed by fisher-yates shuffle
-	    for (int i = KEY_LEN - 1; i >= 0; i--) {
-	        int j = rand.nextInt(i + 1);
-	        int temp = key[i];
-	        key[i] = key[j];
-	        key[j] = temp;
-	    }
-	    
-	    System.out.printf("\nGenerated Key (length %d): \n", KEY_LEN);
-	    for (int i = 1; i <= key.length; i++) {
-	    	System.out.printf("%c", key[i - 1] + 65);
-	    	if (i % 20 == 0) {
-	    		System.out.println();
-	    	}
-	    }
-	    
-	    return key;
-		
 	}
 
 }

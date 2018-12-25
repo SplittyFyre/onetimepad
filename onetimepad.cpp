@@ -47,8 +47,12 @@ int main(int argc, char *argv[]) {
 	bool modeenc = true;
 
 	if (argc == 1) {
-		puts("exit");
-		return 0;
+		puts("-e: encrypt mode");
+        puts("-d: decrypt mode");
+        puts("-g: generate key\n");
+        puts("-k: specify key");
+        puts("-i: specify input");
+        return 0;
 	}
 
 	switch (argv[1][1]) {
@@ -62,9 +66,7 @@ int main(int argc, char *argv[]) {
 		break;
 
 	case 'g':
-		//puts("Warning: Key Genereated using CSPRNG. May not be  truly random");
 		puts("https://www.random.org/strings/?num=25&len=20&upperalpha=on&unique=on&format=plain&rnd=new");
-		//genKey();
 		return 0;
 
 	default:
